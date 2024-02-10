@@ -1,0 +1,145 @@
+{% load static %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+  // Redefine the searchProduct function
+  const searchProductResult = () => {
+    // Get the value from the search input field
+    const query = $('#Header_Show_Input').val();
+
+    // Build the URL for the search view
+    const url = "{% url 'search' %}?query=" + encodeURIComponent(query);
+
+    // Redirect to the search view
+    window.location.href = url;
+  };
+
+  // Attach the click event listener to the search button
+  $('#Header_Show_Find').on('click', function(event) {
+    // Prevent the default form submission behavior
+    event.preventDefault();
+
+    // Call the searchProduct function to handle form submission
+    searchProductResult();
+  });
+</script>
+
+<header class="Header" id="navbar" style="background-color: #3C4242;">
+  <!-- Start Navigation -->
+  <nav class="Header_Top">
+
+    <div class="Header_Top_Navigation" id="Navigation">
+      <a href="{% url 'home' %}" class="Header_Top_Navigation_Logo1">
+        <img src="../../../static/images/logo.jpeg" alt="Rozai Logo" class="Header_Top_Navigation_Logo" />
+      </a>
+<!-- Include jQuery library -->
+
+
+<!-- HTML for the search input box and buttons -->
+<div class="Header_Top_Navigation_InputBox">
+  <input id="Header_Show_Input" type="text" class="Header_Top_Navigation_InputBox_Input" placeholder="search by product name .." />
+  <button id="Header_Show_Find" class="Header_Top_Navigation_InputBox_Logo" onclick="searchProductResult()">
+    <i class="fa-solid fa-magnifying-glass Header_Top_Navigation_InputBox_Logo_Icon"></i>
+  </button>
+  <button id="Header_Show_Search" class="Header_Top_Navigation_InputBox_Logo1">
+    <i class="fa-solid fa-magnifying-glass Header_Top_Navigation_InputBox_Logo1_Icon"></i>
+  </button>
+</div>
+
+
+      <div class="Header_Top_Navigation_Logos">
+
+        {% if user.is_authenticated %}
+          <!-- Cart Icon -->
+          <div class="Header_Top_Navigation_Logos_Logo">
+            <a href="{% url 'cart_list' %}" class="Header_Top_Navigation_Logos_Logo_Logo">
+              <img src="../../../static/images/heading/cart.png" alt="Rozai Cart Png"
+                class="Header_Top_Navigation_Logos_Logo_Icon">
+              <div class="Header_Top_Navigation_Logos_Logo_Number">
+                <span id="cart_itemnumber">0</span>
+                <p>
+                  <a href="{% url 'cart_list' %}">
+                    Cart
+                  </a>
+                </p>
+              </div>
+            </a>
+          </div>
+
+          <!-- Profile Icon -->
+          <div class="Header_Top_Navigation_Logos_Logo" id="profile_logo">
+            <img src="../../../static/images/heading/profile.png" alt="Rozai Profile Png"
+              class="Header_Top_Navigation_Logos_Logo_Icon2">
+            <div class="Header_Top_Navigation_Logos_Logo_Number">
+              <img src="../../../static/images/heading/profilespan.png" alt="Rozai Profile Span"
+                class="Header_Top_Navigation_Logos_Logo_Number_Image">
+              <p>Profile</p>
+            </div>
+          </div>
+        {% else %}
+          <!-- Register Link -->
+          <div class="Header_Top_Navigation_Logos_Logo">
+            <a href="{% url 'register' %}" class="Header_Top_Navigation_Logos_Logo_Logo" style="color: white; font-weight: bold; font-size: 16px;">
+              Register
+            </a>
+          </div>
+          <!-- Login Link -->
+          <div class="Header_Top_Navigation_Logos_Logo">
+            <a href="{% url 'login' %}" class="Header_Top_Navigation_Logos_Logo_Logo" style="color: white; font-weight: bold; font-size: 16px;">
+              Login
+            </a>
+          </div>
+        {% endif %}
+
+      </div>
+      <!--Start Profile Box-->
+      {% if user.is_authenticated %}
+      <!-- Existing Profile Box HTML -->
+      <div class="Header_Top_Profile" id="profile_box" style="display:none;">
+        <div class="Header_Top_Profile_Top">
+          <button id="profile_logo_1" class="Header_Top_Profile_Top_Logo">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <img class="Header_Top_Profile_Top_Image" src="../../../static/images/heading/Profile.png"
+            alt="Rozai Profile Design" />
+          <h3>Profile Details</h3>
+        </div>
+        <form class="Header_Top_Profile_Bottom">
+          <div class="Header_Top_Profile_Bottom_InputField">
+            <p>Name</p>
+            <input type="text" class="Header_Top_Profile_Bottom_InputField_Input" value="{{ user.username }}" />
+          </div>
+          <div class="Header_Top_Profile_Bottom_InputField">
+            <p>Email</p>
+            <input type="text" class="Header_Top_Profile_Bottom_InputField_Input" value="{{ user.email }}" />
+          </div>
+        </form>
+        <div class="Header_Top_Profile_Button">
+          <!-- Add the logout button here -->
+          <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" style="font-size: 18px; background-color: red; padding: 10px;">Logout</button>
+          </form>
+        </div>
+      </div>
+      {% endif %}
+      
+      
+
+      <!-- <div class="Header_Top_Notification">
+      <p id="success">Product Add To Cart</p> -->
+    </div>
+  
+  </nav>
+
+  <!-- Start of Notification/ success/ Error Rozai -->
+  <div class="Header_Box" id="notification_box">
+    <!-- ... Existing Notification Box Content ... -->
+  </div>
+
+  <!-- End Navigation -->
+</header>
+
+{% block jscontent %}
+<script type="text/javascript" src="{% static 'ecomapp/js/custom/constants/navbar.js' %}"></script>
+{% endblock jscontent %}

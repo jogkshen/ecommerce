@@ -1,0 +1,56 @@
+{% extends "ecomapp/base.html" %} 
+{% load static %}
+
+{% block title %}
+<title>Register</title>
+{% endblock title %}
+
+{% block content %}  
+
+
+<form method="post" class="LoginPage">
+    {% csrf_token %}
+    <h2 class="LoginPage_Heading">Create an account</h2>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <!-- <strong>error</strong> -->
+            {{message}}
+          </div>
+        <!-- <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> -->
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <input name="username" required type="text" class="LoginPage_InputField" placeholder="username">
+    <input name="email" required type="email" class="LoginPage_InputField" placeholder="Email">
+    <input name="password1" required type="password" class="LoginPage_InputField" placeholder="Password">
+    <input name="password2"  type ="password" required class="LoginPage_InputField" placeholder="Confirm Password">
+    <input type="hidden" name="is_staff" value="true">
+    <div class="LoginPage_ForgotPassword">
+        <div class="LoginPage_ForgotPassword_Left">
+           <input  type="checkbox" id="aggreingterms_checkbox" class="LoginPage_ForgotPassword_Left_Checkbox">
+           <p class="LoginPage_ForgotPassword_Text">By signing up you agree to our terms and conditions.</p>  
+        </div>
+    </div>
+    <button type="submit" id="register_button" class="LoginPage_Button">Register</button>
+    <div class="LoginPage_Register">
+        <p class="LoginPage_Register_Top">
+            Already have an account?
+        </p>
+        <p class="LoginPage_Register_Hyperlink">
+           <a href="{% url 'login' %}">Log In</a>
+        </p>
+    </div>
+</form>
+
+{% endblock content %}
+
+{% block jscontent %}  
+<script type="module" src="{% static 'ecomapp/js/custom/register.js' %}"></script>
+{% endblock jscontent %}
+
+
+
+
+

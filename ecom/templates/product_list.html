@@ -1,0 +1,47 @@
+{% extends "ecomapp/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="Home_Products">
+    <div class="Home_Products_Heading">
+      <h3>Latest Products</h3>
+      <button class="Home_Products_Heading_Button">
+  
+        <i class="fa-solid fa-arrow-right Home_Products_Heading_Button_Logo"></i>
+      </button>
+    </div>
+    <div class="Home_Products_Boxes">
+      <div class="Home_Products_Boxes_Button">
+        <button style="display: none;" class="Home_Products_Boxes_Button_Left" id="scroll_left_latest_product"
+          onclick='buttonLeftClick("latest_product")'>
+          <i class="fa fa-angle-left fa-2x Home_Products_Boxes_Button_Left_Icon" aria-hidden="true"></i>
+        </button>
+        <button style="display: none;" class="Home_Products_Boxes_Button_Right" id="scroll_right_latest_product"
+          onclick='buttonRightClick("latest_product")'>
+          <i class="fa fa-angle-right fa-2x Home_Products_Boxes_Button_Right_Icon" aria-hidden="true"></i>
+        </button>
+      </div>
+  
+      <div class="Home_Products_Box" id="main_box_latest_product" onmouseover='hoverBox("latest_product")'>
+  
+        {% for latest_product in products %}
+          <a href="{% url 'product_detail' latest_product.id %}" class="Home_Products_Box_Item" onmouseover="to_the_product_item(`{{latest_product.name}}`)" onmouseout="out_from_product_item(`{{latest_product.title}}`)" >
+            <div class="Home_Products_Box_Item_ImageBox">
+              <img src="{{ latest_product.image.url }}" alt="{{ latest_product.name }}" class="Home_Products_Box_Item_ImageBox_Image" />
+            </div>
+            <div class="Home_Products_Box_Item_Span">
+              <p>{{ latest_product.title }}</p>
+              <p>{{latest_product.category}}</p>
+              <span>Rs {{ latest_product.price }}</span>
+              <div class="Home_Products_Box_Item_Text">
+                <!-- Additional text or features if needed -->
+              </div>
+            </div>
+          </a>
+        {% endfor %}
+  
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}

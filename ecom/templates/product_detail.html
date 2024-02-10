@@ -1,0 +1,43 @@
+{% extends "ecomapp/base.html" %} 
+{% load static %}
+
+<!DOCTYPE html>
+
+{% block title %}
+<title>Product Detail</title>
+{% endblock title %}
+
+{% block content %}
+<section class="Single">
+  <div class="Single_Box">
+    <!-- <img src="{{product.image1}}" alt="product image" class="Single_Box_Image"> -->
+    <div class="Single_Box_Image">
+      <!-- src="{{product.image1}}" -->
+      <div id="div_outside_large_image" class="Single_Box_Image_Box1">
+        <img id="large_big_image" src="{{product.image.url}}" alt="productimage" class="Single_Box_Image_Image" />
+      </div>
+
+    </div>
+    <div class="Single_Box_Right">
+      <h3>{{product.title}}</h3>
+      <p style="font-size: 18px;">Description: {{ product.description }}</p> <!-- Increase font size for description -->
+
+      <span style="font-size: 20px;"> <!-- Increase font size for price -->
+        Rs. {{product.price}}
+      </span>
+
+      <!-- Add to Cart Button with increased font size -->
+      <form action="{% url 'add_to_cart' product.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" style="font-size: 16px;">Add to Cart</button> <!-- Increase font size for button -->
+      </form>
+
+      <!-- Buy Now Button -->
+      <a href="{% url 'add_order' product.id %}" class="btn" style="font-size: 16px; margin-left: 10px;">Buy Now</a> <!-- Increase font size for link and style as a button -->
+      
+      <!-- Back to Home Button with increased font size -->
+      <a href="{% url 'home' %}" style="font-size: 16px;">Back to Home</a> <!-- Increase font size for link -->
+    </div>
+  </div>
+</section>
+{% endblock %}

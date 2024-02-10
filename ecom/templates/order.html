@@ -1,0 +1,47 @@
+{% extends "ecomapp/base.html" %}
+{% load static %}
+{% block content %}
+<style>
+
+    .order-form {
+    margin: 0 auto;
+    width: 50%; /* Adjust width as needed */
+    text-align: center;
+}
+
+/* Increase font size */
+.order-form label, 
+.order-form input, 
+.order-form textarea, 
+.order-form button {
+    font-size: 16px;
+}
+</style>
+
+<h2>Place Order</h2>
+<section class="Single">
+    <div class="Single_Box">
+        <form method="post" class="order-form">
+            {% csrf_token %}
+            <label for="fullname">Full Name:</label><br>
+            <input type="text" id="fullname" name="fullname" required><br>
+            
+            <label for="address">Address:</label><br>
+            <input type="text" id="address" name="address" required><br>
+            
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required><br>
+            
+            <label for="phone">Phone:</label><br>
+            <input type="text" id="phone" name="phone_number" required><br>
+            
+            <label for="order_note">Order Note:</label><br>
+            <textarea id="order_note" name="order_note"></textarea><br>
+            
+            <!-- You may include hidden fields for product_id if needed -->
+            
+            <button type="submit">Place Order</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

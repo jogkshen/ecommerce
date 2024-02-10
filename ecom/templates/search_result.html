@@ -1,0 +1,31 @@
+{% extends "ecomapp/base.html" %}
+{% block content %}
+{% if products %}
+  <h2>Search Results</h2>
+  {% for product in products %}
+  <section class="Single">
+    <div class="Single_Box">
+      <!-- <img src="{{product.image1}}" alt="product image" class="Single_Box_Image"> -->
+      <div class="Single_Box_Image">
+        <!-- src="{{product.image1}}" -->
+        <div id="div_outside_large_image" class="Single_Box_Image_Box1">
+          <img id="large_big_image" src="{{product.image.url}}" alt="productimage" class="Single_Box_Image_Image" href ="{% url 'product_detail' pk=product.pk %}"/>
+        </div>
+  
+      </div>
+      <div class="Single_Box_Right">
+        <h3>{{product.title}}</h3>
+        <p style="font-size: 18px;">Description: {{ product.description }}</p> <!-- Increase font size for description -->
+  
+        <span style="font-size: 20px;"> <!-- Increase font size for price -->
+          Rs. {{product.price}}
+        </span>
+       
+      </div>
+    </div>
+  </section>
+  {% endfor %}
+  {% else %}
+    <p>No results found.</p>
+  {% endif %}
+{% endblock %}

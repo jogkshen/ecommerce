@@ -1,0 +1,35 @@
+{% extends "ecomapp/base.html" %}
+{% load static %}
+{% block content %}
+
+<style>
+    .Single_Box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50vh; /* Set the height of the container to the viewport height */
+    }
+
+    .Success_Title {
+        color: green;
+        font-size: 30px;
+        text-align: center;
+        margin-bottom: 20px; /* Add some margin between the title and message */
+    }
+
+    .Success_Message {
+        font-size: 20px;
+        text-align: center;
+    }
+</style>
+
+<section class="Single">
+    <div class="Single_Box">
+        <div>
+            <h2 class="Success_Title">Success!</h2>
+            <p class="Success_Message">{{ success_message }}</p>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
